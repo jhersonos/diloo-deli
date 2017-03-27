@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modulo info</title>
+	<link rel="stylesheet" href="css/semantic/semantic.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="login" style="display: none;"></div>
+<div id="cont">
+	<div id="info">
+		<table border="1" align="center">
+			<tr>
+				<td>
+					<label>ID: </label>
+					<div class="ui input"><input id="phone" type="text"></input>	</div>
+					<button id="bsearch" class="ui button basic" v-on:click="list">
+						<i class="search icon"></i>
+						buscar
+					</button>
+					<button class="ui basic button" id="Uadd">
+					<i class="icon user"></i>
+					Add User
+					</button>
+				</td>
+				<td>
+					<label>Nombre</label>
+					<div class="ui input"><input type="text" id="name"></input></div>
+				</td>
+				<td>
+					<label>Celular</label>
+					<div class="ui input"><input type="text" id="cell"></input></div>
+				</td>
+				<td>
+					<label>Correo</label>
+					<div class="ui input"><input type="text" id="email"></input></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="start">Casa </label>
+					<div class="ui input"><input type="text" id="start" style="width: 300px;"placeholder="address or coordinates" /></div>
+				</td>
+				<td colspan="2">
+					<label for="end">Oficina </label>
+					<div class="ui input"><input type="text" id="end" style="width: 300px;" placeholder="address or coordinates" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<div id="map">
+						
+					</div>
+				</td>
+				<td colspan="2" align="center">
+					<div id="map2">
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div class="elements-group">
+						
+					</div>
+				</td>
+			</tr>
+		</table>
+  	</div>
+ </div>
+ <div class="ui small modal" id="useradd">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="add user icon"></i>	Agregar nuevo usuario
+  </div>
+  <div class="image content">	
+		<form class="ui form" style="width:100%;">
+			<div class=" two fields">
+				<div class="field">
+					<label>Nombre</label>
+					<input type="text" id="u-name" placeholder="Nombre">
+				</div>
+				<div class="field">
+				<label>Phone</label>
+				<input type="text" id="u-phone" placeholder="Phone">
+			</div>
+			</div>
+			<div class="two fields">
+				<div class="field">
+					<label>Email</label>
+					<input type="text" id="u-email" placeholder="Email">
+				</div>
+				<div class="field">
+					<label>Direccion</label>
+					<input type="text" id="direccion">
+				</div>
+			</div>
+			<button class="ui button" type="button" v-on:click="add($event)">Agregar</button>
+			<button class="ui button" type="button">Cancelar</button>
+		</form>
+  </div>
+</div>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTanm_xZQi4_RHeCAxerOqXN96NUwrbZU&libraries=places">
+	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+	<script src="css/semantic/semantic.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/semantic.js"></script>
+</body>
+</html>
