@@ -43,11 +43,11 @@ html,body{
       	padding: 5px;
       }
       #map{
-      	width: 300px;
+      	width: 800px;
       	height: 250px;
       }
       #map2{
-      	width: 300px;
+      	width: 677px;
       	height: 250px;
       }
       .elements-group{
@@ -59,3 +59,7 @@ html,body{
       	height: 100px;
       	border: 1px solid;
       }
+	  #Uadd{
+		  position: relative !important;
+		  float: right !important;
+	  }

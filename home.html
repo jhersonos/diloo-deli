@@ -12,7 +12,7 @@
 	<div id="info">
 		<table border="1" align="center">
 			<tr>
-				<td>
+				<td colspan="4">
 					<label>ID: </label>
 					<div class="ui input"><input id="phone" type="text"></input>	</div>
 					<button id="bsearch" class="ui button basic" v-on:click="list">
@@ -23,6 +23,13 @@
 					<i class="icon user"></i>
 					Add User
 					</button>
+				</td>
+				
+			</tr>
+			<tr>
+				<td>
+					<label for="start">Casa </label>
+					<div class="ui input"><input type="text" id="start" style="width: 300px;"placeholder="address or coordinates" /></div>
 				</td>
 				<td>
 					<label>Nombre</label>
@@ -36,28 +43,22 @@
 					<label>Correo</label>
 					<div class="ui input"><input type="text" id="email"></input></div>
 				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<label for="start">Casa </label>
-					<div class="ui input"><input type="text" id="start" style="width: 300px;"placeholder="address or coordinates" /></div>
-				</td>
-				<td colspan="2">
+				<!--<td colspan="2">
 					<label for="end">Oficina </label>
-					<div class="ui input"><input type="text" id="end" style="width: 300px;" placeholder="address or coordinates" /></div>
-				</td>
+					<div class="ui input"><input type="text" style="width: 300px;" placeholder="address or coordinates" /></div>
+				</td>-->
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="4" align="center">
 					<div id="map">
 						
 					</div>
 				</td>
-				<td colspan="2" align="center">
+<!--				<td colspan="2" align="center">
 					<div id="map2">
 						
 					</div>
-				</td>
+				</td>-->
 			</tr>
 			<tr>
 				<td colspan="4">
@@ -86,29 +87,61 @@
 				<input type="text" id="u-phone" placeholder="Phone">
 			</div>
 			</div>
-			<div class="two fields">
+			<div class="field">
+				<label>Email</label>
+				<input type="text" id="u-email" placeholder="Email">
+			</div>
+			<button class="ui button" id="agregar" type="button" v-on:click="add($event)">Agregar</button>
+			<button class="ui button" type="button" id="cancelar">Cancelar</button>
+		</form>
+  </div>
+</div>
+<!-- second modal -->
+ <div class="ui small modal" id="street">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="street view icon"></i>	Agregar direcciones
+  </div>
+  <div class="image content">	
+		<form class="ui form" style="width:100%;">
+			<div class=" two fields">
 				<div class="field">
-					<label>Email</label>
-					<input type="text" id="u-email" placeholder="Email">
+					<label>Ingrese numero telefonico</label>
+					<input type="text" id="s-phone" placeholder="phone">
 				</div>
 				<div class="field">
 					<label>Direccion</label>
-					<input type="text" id="direccion">
+					<input type="text" id="end" placeholder="direccion">
 				</div>
 			</div>
-			<button class="ui button" type="button" v-on:click="add($event)">Agregar</button>
+			<div class="two fields">
+				<div class="field">
+					<label>Latitud</label>
+					<input type="text" id="s-lat" placeholder="latitud">
+				</div>
+				<div class="field">
+					<label>Longitud</label>
+					<input type="text" id="s-lng" placeholder="longitud">
+				</div>
+			</div>
+			<div class="field">
+				<div id="map2">
+						
+				</div>
+			</div>
+			<button class="ui button" id="asignar" type="button" v-on:click="addStreet">Asignar</button>
 			<button class="ui button" type="button">Cancelar</button>
 		</form>
   </div>
 </div>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTanm_xZQi4_RHeCAxerOqXN96NUwrbZU&libraries=places">
 	</script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/vue"></script>
 	<script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
-	<script src="css/semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script src="css/semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
-	<script type="text/javascript" src="js/semantic.js"></script>
+
 </body>
 </html>
