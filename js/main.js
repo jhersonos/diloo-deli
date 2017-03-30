@@ -7,9 +7,22 @@ var restaurant;
 
 restaurant = new Vue({
 	el:'#restaurants',
-	data:{},
+	data:{
+		all:[]
+	},
 	methods:{
-
+		getrestaurant:function(){
+			this.$http.get('http://40.76.4.149:8000/restaurant',{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
+				console.log(response)
+				this.all = response.body
+				this.all.forEach(function(res){
+					//console.log(res.name)
+					this.all.push({id:res.id,name:res.name})
+				});
+			},response=>{
+				console.log(response)
+			});
+		}
 	}
 });
 
@@ -119,7 +132,7 @@ login = new Vue({
 			}
 		}
 	});
-
+restaurant.getrestaurant();
 
 //semantic ui
     $(document).on('click','#Uadd',function(){
