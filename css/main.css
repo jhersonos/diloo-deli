@@ -43,7 +43,8 @@ html,body{
       	padding: 5px;
       }
       #map{
-      	width: 800px;
+		width:100%;
+      	/*width: 800px;*/
       	height: 250px;
       }
       #map2{
@@ -60,6 +61,10 @@ html,body{
       	border: 1px solid;
       }
 	  #Uadd{
+		  position: relative !important;
+		  float: right !important;
+	  }
+	  .f-right{
 		  position: relative !important;
 		  float: right !important;
 	  }

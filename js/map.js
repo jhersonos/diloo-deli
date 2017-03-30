@@ -1,4 +1,4 @@
-		var map = null;
+var map = null;
 		var map2 = null;
 		var marker = [];
 		var marker2 = []

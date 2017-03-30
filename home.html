@@ -10,7 +10,7 @@
 <div id="login" style="display: none;"></div>
 <div id="cont">
 	<div id="info">
-		<table border="1" align="center">
+		<table border="1" align="center" class="ui celled striped table">
 			<tr>
 				<td colspan="4">
 					<label>ID: </label>
@@ -19,17 +19,28 @@
 						<i class="search icon"></i>
 						buscar
 					</button>
+					<button class="ui basic button f-right">
+					<i class="apple icon"></i>
+					Add product
+					</button>
+					<button class="ui basic button f-right">
+					<i class="shop icon"></i>
+					Add restaurant
+					</button>
+					<button class="ui basic button f-right" id="addstreet">
+					<i class="street view icon"></i>
+					Add street
+					</button>
 					<button class="ui basic button" id="Uadd">
 					<i class="icon user"></i>
 					Add User
 					</button>
-				</td>
-				
+				</td>	
 			</tr>
 			<tr>
 				<td>
 					<label for="start">Casa </label>
-					<div class="ui input"><input type="text" id="start" style="width: 300px;"placeholder="address or coordinates" /></div>
+					<div class="ui input"><input type="text" id="start" style="width: 300px;" placeholder="address or coordinates" /></div>
 				</td>
 				<td>
 					<label>Nombre</label>
@@ -43,10 +54,6 @@
 					<label>Correo</label>
 					<div class="ui input"><input type="text" id="email"></input></div>
 				</td>
-				<!--<td colspan="2">
-					<label for="end">Oficina </label>
-					<div class="ui input"><input type="text" id="end" style="width: 300px;" placeholder="address or coordinates" /></div>
-				</td>-->
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
@@ -54,14 +61,9 @@
 						
 					</div>
 				</td>
-<!--				<td colspan="2" align="center">
-					<div id="map2">
-						
-					</div>
-				</td>-->
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="4" id="restaurants">
 					<div class="elements-group">
 						
 					</div>
@@ -92,7 +94,7 @@
 				<input type="text" id="u-email" placeholder="Email">
 			</div>
 			<button class="ui button" id="agregar" type="button" v-on:click="add($event)">Agregar</button>
-			<button class="ui button" type="button" id="cancelar">Cancelar</button>
+			<button class="ui button cancelar" type="button" id="cancelar">Cancelar</button>
 		</form>
   </div>
 </div>
@@ -111,7 +113,7 @@
 				</div>
 				<div class="field">
 					<label>Direccion</label>
-					<input type="text" id="s-direccion" placeholder="direccion">
+					<input type="text" id="end" placeholder="direccion">
 				</div>
 			</div>
 			<div class="two fields">
@@ -130,11 +132,11 @@
 				</div>
 			</div>
 			<button class="ui button" id="asignar" type="button" v-on:click="addStreet">Asignar</button>
-			<button class="ui button" type="button">Cancelar</button>
+			<button class="ui button cancelar" type="button">Cancelar</button>
 		</form>
   </div>
 </div>
-<input type="hidden" id="end">
+<input type="hidden" >
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTanm_xZQi4_RHeCAxerOqXN96NUwrbZU&libraries=places">
 	</script>
@@ -143,6 +145,5 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script src="css/semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
-
 </body>
 </html>

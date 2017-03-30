@@ -3,6 +3,15 @@ var login;
 var getuser;
 var adduser;
 var addstreet;
+var restaurant;
+
+restaurant = new Vue({
+	el:'#restaurants',
+	data:{},
+	methods:{
+
+	}
+});
 
 login = new Vue({
 		el: '#login',
@@ -94,7 +103,7 @@ login = new Vue({
 					console.log(response)
 				})
 			},addStreets:function(id){
-				var street = document.getElementById('s-direccion').value;
+				var street = document.getElementById('end').value;
 				var lat = document.getElementById('s-lat').value;
 				var lng = document.getElementById('s-lng').value;
 				var position = {
@@ -110,8 +119,16 @@ login = new Vue({
 			}
 		}
 	});
+
+
 //semantic ui
     $(document).on('click','#Uadd',function(){
 		$('#useradd').modal('show')
  	})
+	$(document).on('click','#addstreet',function(){
+		$('#street').modal('show')
+	}) 
+	$(document).on('click','.cancelar',function(){
+		$('.ui.modal').modal('hide')
+	}) 
 })
