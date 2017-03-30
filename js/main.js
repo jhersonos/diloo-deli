@@ -4,28 +4,6 @@ var getuser;
 var adduser;
 var addstreet;
 
-/*
-$(document).on('click','#agregar',function(){
-	var name = document.getElementById('u-name').value;
-	var phone = document.getElementById('u-phone').value;
-	var email = document.getElementById('u-email').value;
-	$.ajax({
-		type:'POST',
-		url:'http://40.76.4.149:8000/user',
-		dataType:'json',
-		data:{name:name, phone: phone, email:email},
-		headers:{
-			Authorization: 'Bearer '+ window.localStorage.log
-		},
-		success:function(response){
-			console.log(response)
-		},err:function(response){
-			console.log(response)
-		}
-	})
-})
-*/
-
 login = new Vue({
 		el: '#login',
 		data:{
@@ -108,14 +86,27 @@ login = new Vue({
 		methods:{
 			addStreet:function(e){
 				e.preventDefault();
-				var phone = document.getElementById('phone').value;
+				var phone = document.getElementById('s-phone').value;
 				this.$http.get('http://40.76.4.149:8000/user/findOne?phone='+phone,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
 					console.log(response.body.user.id);
+					this.addStreets(response.body.user.id);
 				},response=>{
 					console.log(response)
 				})
-			},addStreets:function(){
-				
+			},addStreets:function(id){
+				var street = document.getElementById('s-direccion').value;
+				var lat = document.getElementById('s-lat').value;
+				var lng = document.getElementById('s-lng').value;
+				var position = {
+					lat:lat,
+					lng:lng
+				};
+				this.$http.post('http://40.76.4.149:8000/user/address', {user: id, street: street, position:position}).then((response) => {
+						console.log(response);
+						//$('#street').modal('show')
+					},response=>{
+						console.log(response)
+					});
 			}
 		}
 	});
