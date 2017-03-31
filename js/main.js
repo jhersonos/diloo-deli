@@ -1,10 +1,9 @@
-$( document ).ready(function() {
+var restaurant;
 var login;
 var getuser;
 var adduser;
 var addstreet;
-var restaurant;
-
+var prod;
 restaurant = new Vue({
 	el:'#restaurants',
 	data:{
@@ -12,13 +11,18 @@ restaurant = new Vue({
 	},
 	methods:{
 		getrestaurant:function(){
-			this.$http.get('http://40.76.4.149:8000/restaurant',{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
-				console.log(response)
-				this.all = response.body
-				this.all.forEach(function(res){
-					//console.log(res.name)
-					this.all.push({id:res.id,name:res.name})
-				});
+			var self = this;
+			self.$http.get('http://40.76.4.149:8000/restaurant',{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
+				self.all = response.body
+				console.log(self.all)
+				var box = document.getElementById('rest');
+				var option;
+				self.all.forEach(function(res){
+					option = document.createElement('option');
+					option.value = res.id; 
+					option.text  = res.name;
+					box.add(option)
+				})
 			},response=>{
 				console.log(response)
 			});
@@ -132,6 +136,34 @@ login = new Vue({
 			}
 		}
 	});
+
+	prod = new Vue({
+		el:'#productos',
+		data:{
+			producto : []
+		},
+		methods:{
+			getProduct:function(id){
+				var url ='http://40.76.4.149:8000/restaurant/'+id+'/products';
+				this.$http.get(url,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
+					console.log(response)
+					this.producto=response.body;
+					var select = document.getElementById('prod');
+					$('#prod').find('option').remove().end();
+					this.producto.forEach(function(res){
+						option = document.createElement('option');
+						option.value = res.id; 
+						option.text  = res.name;
+						select.add(option)
+					})
+				},response=>{
+					console.log(response)
+				})
+			}
+		}
+	});
+
+
 restaurant.getrestaurant();
 
 //semantic ui
@@ -144,4 +176,9 @@ restaurant.getrestaurant();
 	$(document).on('click','.cancelar',function(){
 		$('.ui.modal').modal('hide')
 	}) 
-})
+	$(document).on('change','#rest',function(){
+		var id = $('#rest').val();
+		prod.getProduct(id);
+	})
+
+

@@ -13,7 +13,7 @@
 		<table border="1" align="center" class="ui celled striped table">
 			<tr>
 				<td colspan="4">
-					<label>ID: </label>
+					<label>Telefono: </label>
 					<div class="ui input"><input id="phone" type="text"></input>	</div>
 					<button id="bsearch" class="ui button basic" v-on:click="list">
 						<i class="search icon"></i>
@@ -62,11 +62,14 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="4" id="restaurants">
-						<div class="elements-group" v-for="a in all">
-							<span>{{ a.v }}</span>
-						</div>
+			<tr>	
+				<td colspan="2" id="restaurants">
+						<label for="">Restaurantes</label>
+						<select name="rest" id="rest"></select>
+				</td>
+				<td colspan="2" id="productos">
+					<label>Productos</label>
+					<select name="prod" id="prod"></select>
 				</td>
 			</tr>
 		</table>
@@ -136,7 +139,6 @@
 		</form>
   </div>
 </div>
-<input type="hidden" >
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTanm_xZQi4_RHeCAxerOqXN96NUwrbZU&libraries=places">
 	</script>
