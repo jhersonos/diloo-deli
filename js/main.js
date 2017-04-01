@@ -1,5 +1,4 @@
 var restaurant;
-var login;
 var getuser;
 var adduser;
 var addstreet;
@@ -30,30 +29,7 @@ restaurant = new Vue({
 	}
 });
 
-login = new Vue({
-		el: '#login',
-		data:{
-			token:''
-		},
-		methods:{
-			loggin:function(e){
-				e.preventDefault();
-				var credentials = {
-					'email':document.getElementById('email').value,
-					'password':document.getElementById('pass').value
-				};
 
-				this.$http.post('http://40.76.4.149:8000/admin/login',credentials).then(response=>{
-					// console.log(response)
-					this.token = response.body.token;
-					window.localStorage.log = response.body.token;
-					window.location.href='home.html'
-				},response=>{
-					console.log(response)
-				})
-			}
-		}
-	});
 	
 	getuser = new Vue({
 		el:'#cont',
@@ -72,7 +48,18 @@ login = new Vue({
 					document.getElementById('name').value=this.user.name;
 					document.getElementById('cell').value=this.user.phone;
 					document.getElementById('email').value=this.user.email;
-					document.getElementById('start').value=this.address[0].street;
+					var opt;
+					var sl = document.getElementById('s-start');
+					$('#s-start').find('option').remove().end();
+					if(this.address.length > 0){
+						this.address.forEach(function(res){
+							opt=document.createElement('option');
+							opt.text=res.street;
+							sl.add(opt)
+						})
+					}
+					//document.getElementById('start').value=this.address[0].street;
+					
 					document.getElementById('start').focus();
 				},response=>{
 					console.log(response)
