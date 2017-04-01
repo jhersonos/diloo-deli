@@ -113,3 +113,53 @@
 window.addEventListener('load', function () {
 			initialize();
 });
+
+document.getElementById('s-start').addEventListener('change',function(){
+		var map = null;
+		var infoWindow = null;
+		function openInfoWindow(marker) {
+		    var markerLatLng = marker.getPosition();
+		    infoWindow.setContent([
+		        '<strong>La posicion del marcador es:</strong><br/>',
+		        markerLatLng.lat(),
+		        ', ',
+		        markerLatLng.lng(),
+		        '<br/>Arrástrame y haz click para actualizar la posición.'
+		    ].join(''));
+		    infoWindow.open(map, marker);
+		}
+
+document.getElementById('map').setAttribute('style','display:none;')
+	document.getElementById('maps').setAttribute('style','display:block;')
+	var sl = document.getElementById('s-start').value;
+			if (sl != "" ) {
+				separador = " ", // un espacio en blanco
+			    
+			    arreglo = sl.split(separador);
+
+				var myLatlng = new google.maps.LatLng(arreglo.lat,arreglo.lng);
+				
+			}else{
+		    var myLatlng = new google.maps.LatLng(20.68017,-101.35437);
+			}
+		    var myOptions = {
+		      zoom: 13,
+		      center: myLatlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    }
+
+		    map = new google.maps.Map($("#maps").get(0), myOptions);
+
+		    infoWindow = new google.maps.InfoWindow();
+
+		    var marker = new google.maps.Marker({
+		        position: myLatlng,
+		        draggable: true,
+		        map: map,
+		        title:"Ejemplo marcador arrastrable"
+		    });
+
+		    google.maps.event.addListener(marker, 'click', function(){
+		        openInfoWindow(marker);
+		    });
+})

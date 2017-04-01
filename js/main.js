@@ -52,10 +52,19 @@ restaurant = new Vue({
 					var sl = document.getElementById('s-start');
 					$('#s-start').find('option').remove().end();
 					if(this.address.length > 0){
+						var i =0 ;
+						var object,lng,lat,pt; 
 						this.address.forEach(function(res){
+							object = JSON.parse(res.position);
+							lat	   = object.lat;
+							lng    = object.lng;
+							pt		= lat + " " + lng;
+							console.log(pt)
 							opt=document.createElement('option');
+							opt.value=pt;
 							opt.text=res.street;
 							sl.add(opt)
+							i++;
 						})
 					}
 					//document.getElementById('start').value=this.address[0].street;

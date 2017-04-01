@@ -47,6 +47,11 @@ html,body{
       	/*width: 800px;*/
       	height: 250px;
       }
+	 #maps{
+		width:100%;
+      	/*width: 800px;*/
+      	height: 250px;
+      }
       #map2{
       	width: 677px;
       	height: 250px;
