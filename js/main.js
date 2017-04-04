@@ -3,6 +3,8 @@ var getuser;
 var adduser;
 var addstreet;
 var prod;
+var addrest;
+/*****************get restaurant and set to select **************/
 restaurant = new Vue({
 	el:'#restaurants',
 	data:{
@@ -13,14 +15,19 @@ restaurant = new Vue({
 			var self = this;
 			self.$http.get('http://40.76.4.149:8000/restaurant',{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
 				self.all = response.body
-				console.log(self.all)
+				//console.log(self.all)
 				var box = document.getElementById('rest');
+				var sel = document.getElementById('p-restaurant')
 				var option;
 				self.all.forEach(function(res){
 					option = document.createElement('option');
+					option2=document.createElement('option');
 					option.value = res.id; 
 					option.text  = res.name;
+					option2.value = res.id; 
+					option2.text  = res.name;
 					box.add(option)
+					sel.add(option2)
 				})
 			},response=>{
 				console.log(response)
@@ -29,7 +36,7 @@ restaurant = new Vue({
 	}
 });
 
-
+/**************get user info to show :3****************/
 	
 	getuser = new Vue({
 		el:'#cont',
@@ -159,6 +166,27 @@ restaurant = new Vue({
 		}
 	});
 
+	addrest = new Vue({
+		el:'#mrest',
+		data:{
+
+		},
+		methods:{
+			create:function(e){
+				e.preventDefault();
+				var name = document.getElementById('name-restaurant').value;
+				this.$http.post('http://40.76.4.149:8000/restaurant', {name:name}).then((response) => {
+						console.log(response);
+						if(response.status == 201){
+							location.reload();
+						}
+					},response=>{
+						console.log(response)
+					});
+			}
+		}
+	});
+
 
 restaurant.getrestaurant();
 
@@ -172,6 +200,12 @@ restaurant.getrestaurant();
 	$(document).on('click','.cancelar',function(){
 		$('.ui.modal').modal('hide')
 	}) 
+	$(document).on('click','#addrest',function(){
+		$('#mrest').modal('show')
+	})
+	$(document).on('click','#addprod',function(){
+		$('#mprod').modal('show')
+	})
 	$(document).on('change','#rest',function(){
 		var id = $('#rest').val();
 		prod.getProduct(id);

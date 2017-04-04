@@ -19,11 +19,11 @@
 						<i class="search icon"></i>
 						buscar
 					</button>
-					<button class="ui basic button f-right">
+					<button class="ui basic button f-right" id="addprod">
 					<i class="apple icon"></i>
 					Add product
 					</button>
-					<button class="ui basic button f-right">
+					<button class="ui basic button f-right" id="addrest">
 					<i class="shop icon"></i>
 					Add restaurant
 					</button>
@@ -49,20 +49,20 @@
 				</td>
 				<td>
 					<label>Nombre</label>
-					<div class="ui input"><input type="text" id="name"></input></div>
+					<div class="ui input"><input type="text" disabled="true" id="name"></input></div>
 				</td>
 				<td>
 					<label>Celular</label>
-					<div class="ui input"><input type="text" id="cell"></input></div>
+					<div class="ui input"><input type="text" disabled="true" id="cell"></input></div>
 				</td>
 				<td>
 					<label>Correo</label>
-					<div class="ui input"><input type="text" id="email"></input></div>
+					<div class="ui input"><input type="text" disabled="true" id="email" style="width:250px;"></input></div>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
-					<div id="map">
+					<div id="map-start">
 						
 					</div>
 					<div id="maps" style="display: none;">
@@ -141,12 +141,63 @@
 				<div id="map2">
 						
 				</div>
+				<span>Presione click en el marcador para obtener latitud y longitud</span>
 			</div>
 			<button class="ui button" id="asignar" type="button" v-on:click="addStreet">Asignar</button>
 			<button class="ui button cancelar" type="button">Cancelar</button>
 		</form>
   </div>
 </div>
+<!-- third modal restaurante -->
+ <div class="ui small modal" id="mrest">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="street view icon"></i>	Agregar restaurantes
+  </div>
+  <div class="image content">	
+		<form class="ui form" style="width:100%;">
+			<div class="field">
+				<label for="">Nombre restaurante: </label>
+				<input type="text" id="name-restaurant">
+			</div>
+			<button class="ui button" id="asignar" type="button" v-on:click="create($event)">agregar</button>
+			<button class="ui button cancelar" type="button">Cancelar</button>
+		</form>
+  </div>
+</div>
+<!-- fourth modal product -->
+ <div class="ui small modal" id="mprod">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="street view icon"></i>	Agregar productos
+  </div>
+  <div class="image content">	
+		<form class="ui form" style="width:100%;">
+			<div class="two fields">
+				<div class="field">
+					<label for="">Nombre producto: </label>
+					<input type="text" id="name-restaurant">
+				</div>
+				<div class="field">
+					<label for="">tipo:</label>
+					<input type="text" id="tipo-prod">
+				</div>
+			</div>
+			<div class="two fields">
+				<div class="field">
+					<label for="">restaurante:</label>
+					<select name="" id="p-restaurant"></select>
+				</div>
+				<div class="field">
+					<label for="">precio:</label>
+					<input type="text" id="p-precio">
+				</div>
+			</div>
+			<button class="ui button" id="asignar" type="button" v-on:click="create($event)">agregar</button>
+			<button class="ui button cancelar" type="button">Cancelar</button>
+		</form>
+  </div>
+ </div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTanm_xZQi4_RHeCAxerOqXN96NUwrbZU&libraries=places">
 	</script>
