@@ -115,6 +115,8 @@ window.addEventListener('load', function () {
 });
 
 document.getElementById('s-start').addEventListener('change',function(){
+	document.getElementById('map').setAttribute('style','display:none;')
+	document.getElementById('maps').setAttribute('style','display:block;')
 		var map = null;
 		var infoWindow = null;
 		function openInfoWindow(marker) {
@@ -129,15 +131,13 @@ document.getElementById('s-start').addEventListener('change',function(){
 		    infoWindow.open(map, marker);
 		}
 
-document.getElementById('map').setAttribute('style','display:none;')
-	document.getElementById('maps').setAttribute('style','display:block;')
 	var sl = document.getElementById('s-start').value;
 			if (sl != "" ) {
 				separador = " ", // un espacio en blanco
 			    
-			    arreglo = sl.split(separador);
+			    arreglo = sl.split(separador);//guarda lat y lng de cada direccion 
 
-				var myLatlng = new google.maps.LatLng(arreglo.lat,arreglo.lng);
+				var myLatlng = new google.maps.LatLng(arreglo[0],arreglo[1]);
 				
 			}else{
 		    var myLatlng = new google.maps.LatLng(20.68017,-101.35437);
