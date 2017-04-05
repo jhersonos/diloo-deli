@@ -240,7 +240,6 @@ restaurant.getrestaurant();
 			var input = document.getElementById('end');
 			var searchBox = new google.maps.places.SearchBox(input);
 			var marker=[];
-			//map_addres.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 			// Bias the SearchBox results towards current map's viewport.
 			map_addres.addListener('bounds_changed', function() {
