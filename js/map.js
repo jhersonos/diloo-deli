@@ -38,37 +38,10 @@
 				document.getElementById('s-lng').value=lng;
 				infoWindow.open(map, marker);
 			}
-		function initialize() {
-			 var input = document.getElementById('end');
-				var searchBox = new google.maps.places.SearchBox(input);
 
-		    var myLatlng = new google.maps.LatLng(-12.114398, -77.044565);
-
-		    var myOptions = {
-		      zoom: 15,
-		      center: myLatlng,
-		      mapTypeId: google.maps.MapTypeId.ROADMAP
-		    }
-
-		    map_addres = new google.maps.Map($("#map2").get(0), myOptions);
-
-		    infoWindow = new google.maps.InfoWindow();
-
-		    var marker = new google.maps.Marker({
-		        position: myLatlng,
-		        draggable: true,
-		        map: map_addres,
-		        title:"Ejemplo marcador arrastrable"
-		    });
-			
-			google.maps.event.addListener(marker, 'click', function(){
-		        info(marker);
-		    });
-
-			}
 /***********************************************************/
 window.addEventListener('load', function () {
-			initialize();
+			//initialize();
 			init();
 });
 
