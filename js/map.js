@@ -38,6 +38,7 @@
 				document.getElementById('s-lng').value=lng;
 				infoWindow.open(map, marker);
 			}
+			
 
 /***********************************************************/
 window.addEventListener('load', function () {

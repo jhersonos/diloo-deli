@@ -236,17 +236,62 @@ restaurant.getrestaurant();
 
 		    infoWindow = new google.maps.InfoWindow();
 
-		    var marker = new google.maps.Marker({
-		        position: myLatlng,
-		        draggable: true,
-		        map: map_addres,
-		        title:"Ejemplo marcador arrastrable"
-		    });
-			
-			google.maps.event.addListener(marker, 'click', function(){
-		        info(marker);
-		    });
+			//searchBox
+			var input = document.getElementById('end');
+			var searchBox = new google.maps.places.SearchBox(input);
+			var marker=[];
+			//map_addres.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+			// Bias the SearchBox results towards current map's viewport.
+			map_addres.addListener('bounds_changed', function() {
+				searchBox.setBounds(map_addres.getBounds());
+			});
+
+				infoWindow = new google.maps.InfoWindow();
+				searchBox.addListener('places_changed', function() {
+				// marker=[];
+				if (marker && marker !="") {
+				marker.setMap(null);
+				}
+				var places = searchBox.getPlaces();
+
+				if (places.length == 0) {
+				return;
+				}
+				var bounds = new google.maps.LatLngBounds();
+				places.forEach(function(place) {
+				var icon = {
+					url: place.icon,
+					size: new google.maps.Size(71, 71),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(17, 34),
+					scaledSize: new google.maps.Size(25, 25)
+				};
+				
+				marker=new google.maps.Marker({ // markers
+					map: map_addres,
+					draggable: true,
+					// icon: icon,
+					title: place.name,
+					animation: google.maps.Animation.DROP,
+					position: place.geometry.location
+				});
+				marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+				marker.addListener('click',function(){
+					info(marker);
+				})
+				google.maps.event.trigger(marker, 'click', {});
+
+				if (place.geometry.viewport) {
+					// Only geocodes have viewport.
+					bounds.union(place.geometry.viewport);
+				} else {
+					bounds.extend(place.geometry.location);
+				}
+				});
+				map_addres.fitBounds(bounds);
+			});
+			//fin searchBox
 			}
 //semantic ui
     $(document).on('click','#Uadd',function(){
