@@ -2,8 +2,9 @@ var restaurant;
 var getuser;
 var adduser;
 var addstreet;
-var prod;
+var getprod;
 var addrest;
+var addprod;
 /*****************get restaurant and set to select **************/
 restaurant = new Vue({
 	el:'#restaurants',
@@ -140,7 +141,7 @@ restaurant = new Vue({
 		}
 	});
 
-	prod = new Vue({
+	getprod = new Vue({
 		el:'#productos',
 		data:{
 			producto : []
@@ -153,6 +154,10 @@ restaurant = new Vue({
 					this.producto=response.body;
 					var select = document.getElementById('prod');
 					$('#prod').find('option').remove().end();
+					var def=document.createElement('option');
+					def.value="";
+					def.text="-- Seleccione producto --";
+					select.add(def);
 					this.producto.forEach(function(res){
 						option = document.createElement('option');
 						option.value = res.id; 
@@ -187,6 +192,30 @@ restaurant = new Vue({
 		}
 	});
 
+	addprod = new Vue({
+		el:'#mprod',
+		data:{
+
+		},
+		methods:{
+			create:function(e){
+				e.preventDefault();
+				var name = document.getElementById('name-product').value;
+				var tipo = document.getElementById('tipo-prod').value;
+				var restaurant = document.getElementById('p-restaurant').value;
+				var precio = document.getElementById('p-precio').value;	
+				this.$http.post('http://40.76.4.149:8000/product', {name:name,type:tipo,restaurant:restaurant,price:precio}).then((response) => {
+						console.log(response);
+						if(response.status == 201){
+							location.reload();
+						}
+					},response=>{
+						console.log(response)
+					});
+			}
+		}
+	});
+
 
 restaurant.getrestaurant();
 
@@ -208,7 +237,7 @@ restaurant.getrestaurant();
 	})
 	$(document).on('change','#rest',function(){
 		var id = $('#rest').val();
-		prod.getProduct(id);
+		getprod.getProduct(id);
 	})
 
 

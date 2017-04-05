@@ -63,7 +63,7 @@
 		        info(marker);
 		    });
 
-			
+			google.maps.event.trigger(map, "resize");
 			}
 /***********************************************************/
 window.addEventListener('load', function () {
