@@ -1,5 +1,6 @@
 		var map = null;
 		var map2 = null;
+		var map_addres;
 		var marker = [];
 		var marker2 = []
 		var map_start = null;
@@ -49,21 +50,21 @@
 		      mapTypeId: google.maps.MapTypeId.ROADMAP
 		    }
 
-		    map = new google.maps.Map($("#map2").get(0), myOptions);
+		    map_addres = new google.maps.Map($("#map2").get(0), myOptions);
 
 		    infoWindow = new google.maps.InfoWindow();
 
 		    var marker = new google.maps.Marker({
 		        position: myLatlng,
 		        draggable: true,
-		        map: map,
+		        map: map_addres,
 		        title:"Ejemplo marcador arrastrable"
 		    });
-		    google.maps.event.addListener(marker, 'click', function(){
+			
+			google.maps.event.addListener(marker, 'click', function(){
 		        info(marker);
 		    });
 
-			google.maps.event.trigger(map, "resize");
 			}
 /***********************************************************/
 window.addEventListener('load', function () {

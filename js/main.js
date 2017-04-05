@@ -153,6 +153,7 @@ restaurant = new Vue({
 					console.log(response)
 					this.producto=response.body;
 					var select = document.getElementById('prod');
+					select.removeAttribute('disabled');
 					$('#prod').find('option').remove().end();
 					var def=document.createElement('option');
 					def.value="";
@@ -231,6 +232,7 @@ restaurant.getrestaurant();
 	}) 
 	$(document).on('click','#addrest',function(){
 		$('#mrest').modal('show')
+		google.maps.event.trigger(map_addres, 'resize');
 	})
 	$(document).on('click','#addprod',function(){
 		$('#mprod').modal('show')
