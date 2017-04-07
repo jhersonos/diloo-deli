@@ -11,6 +11,7 @@ login = new Vue({
 //					'email':document.getElementById('email').value,
 //					'password':document.getElementById('pass').value
 //				};
+				setTimeout(function() {
 				this.$http.post('http://40.76.4.149:8000/admin/login',{email:document.getElementById('email').value,password:document.getElementById('pass').value}).then(response=>{
 					this.token = response.body.token;
 					window.localStorage.log = response.body.token;
@@ -18,6 +19,7 @@ login = new Vue({
 				},response=>{
 					console.log(response)
 				})
+				}, 0);
 			}
 		}
 	});

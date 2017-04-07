@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div id="login" style="display: none;"></div>
 <div id="cont">
 	<div id="info">
 		<table border="1" align="center" class="ui celled striped table">
@@ -49,7 +48,11 @@
 				</td>
 				<td>
 					<label>Nombre</label>
-					<div class="ui input"><input type="text" disabled="true" id="name"></input></div>
+					<div class="ui input">
+						<input type="text" disabled="true" id="name"></input>
+						<input type="hidden" id="id-user">
+					</div>
+					
 				</td>
 				<td>
 					<label>Celular</label>
@@ -82,6 +85,54 @@
 					<select name="prod" id="prod" disabled="true">
 						<option value="">-- Seleccione producto --</option>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<div id="list" class="inline-block">
+						<div class="ui middle aligned divided list" id="list-box">
+							
+						</div>
+					</div>
+					<div class="inline-block m10">
+						<textarea name="comments" id="comments" placeholder="Add comments"></textarea>
+					</div>
+					<div class="inline-block vi m10">
+						<div class="inline field" style="margin: 5px 0;">
+							<div class="ui right pointing label" style="padding: 13px;">
+							Método
+							</div>
+							<select id="metodo">
+								<option value="cash">cash</option>
+								<option value="pos">pos</option>
+								<option value="link"> link </option>
+							</select>
+						</div>
+						<div class="inline field ui input" style="margin: 5px 0;">
+							<div class="ui right pointing label" style="padding: 13px;">
+							Subtotal
+							</div>
+							<input type="text" id="subtotal">
+						</div>
+						<div class="inline field" style="margin: 5px 0;">
+							<div class="ui right pointing label" style="padding: 13px;">
+							Delivery
+							</div>
+							<input type="text" id="delivery">
+						</div>
+					</div>	
+				</td>
+				<td>
+					<div id="order_">
+						<div class="inline field ui input" style="margin: 5px 0;">
+							<div class="ui right pointing label" style="padding: 13px;">
+							Total
+							</div>
+							<input type="hidden" id="vi">
+							<input type="text" id="total">
+						</div><br>
+						<button class="ui button" id="rpedido" >Realizar pedido</button>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -212,5 +263,6 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script src="css/semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
+	<script>if(typeof(archivoCargado)=="undefined"){ location.reload(); }else{console.log('correcto')}</script>
 </body>
 </html>

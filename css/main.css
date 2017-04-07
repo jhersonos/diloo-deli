@@ -35,11 +35,17 @@ html,body{
             height: 25px;
             padding: 0px;
       }*/
-
-      table tr{
+	  table{
+		  height: 100%;
+	  }
+      table{
+		  height: 100%;
+	  } tr{
       	padding: 10px;
       }
-      table tr td{
+      table{
+		  height: 100%;
+	  } tr td{
       	padding: 5px;
       }
       #map-start{
@@ -82,4 +88,58 @@ html,body{
 	  .ver{
 		  position: relative;
 		  right: 0;
+	  }
+	  #list{
+		width: 300px;
+		height: 150px;
+		border: 1px solid black;
+		border-radius:5px; 
+		/*overflow-y: scroll*/
+	  }
+	  #list-box{
+		  overflow-y: scroll;
+		  height: 100%;
+	  }
+	  .content{
+		margin-top: 9px;
+		padding-top: 0px;
+		padding-left: 20px
+	  }
+	  .price{
+		  margin: 12px;
+	  }
+	  #comments{
+		width: 180px;
+		height: 148px;
+		border-radius: 5px;
+		margin: 0px;
+	  }
+	  .inline-block{
+		  display: inline-block;
+	  }
+	  .vi{
+		  vertical-align: top;
+	  }
+	  .m10{
+		  margin-left: 10px;
+	  }
+	  #delivery{
+		      margin: 0;
+    max-width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    text-align: left;
+    line-height: 1.21428571em;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    padding: .67857143em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+    -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+    transition: box-shadow .1s ease,border-color .1s ease;
+    box-shadow: none;
 	  }
