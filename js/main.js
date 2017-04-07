@@ -90,14 +90,16 @@ restaurant = new Vue({
 		data:{},
 		methods:{
 			add:function(e){
-				console.log('proccesing')
 				e.preventDefault();
-					var name = document.getElementById('u-name').value;
-					var phone = document.getElementById('u-phone').value;
-					var email = document.getElementById('u-email').value;
-				this.$http.post('http://40.76.4.149:8000/user', {name: name, phone: phone, email:email}).then((response) => {
+					//var name = document.getElementById('u-name').value;
+					//var phone = document.getElementById('u-phone').value;
+					//var email = document.getElementById('u-email').value;
+				this.$http.post('http://40.76.4.149:8000/user', {name: document.getElementById('u-name').value, phone: document.getElementById('u-phone').value, email:document.getElementById('u-email').value}).then((response) => {
 					console.log(response);
+					alert('usuario registrado correctamente')
+					$('#form-user')[0].reset();
 					$('#street').modal('show')
+					initialize();
 				},response=>{
 					console.log(response)
 					if(response.status == 500){
@@ -116,23 +118,17 @@ restaurant = new Vue({
 		methods:{
 			addStreet:function(e){
 				e.preventDefault();
-				var phone = document.getElementById('s-phone').value;
-				this.$http.get('http://40.76.4.149:8000/user/findOne?phone='+phone,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
+				this.$http.get('http://40.76.4.149:8000/user/findOne?phone='+document.getElementById('s-phone').value,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
 					console.log(response.body.user.id);
 					this.addStreets(response.body.user.id);
 				},response=>{
 					console.log(response)
 				})
 			},addStreets:function(id){
-				var street = document.getElementById('end').value;
-				var lat = document.getElementById('s-lat').value;
-				var lng = document.getElementById('s-lng').value;
-				var position = {
-					lat:lat,
-					lng:lng
-				};
-				this.$http.post('http://40.76.4.149:8000/user/address', {user: id, street: street, position:position}).then((response) => {
+				this.$http.post('http://40.76.4.149:8000/user/address', {user: id, street: document.getElementById('end').value, position:{lat:document.getElementById('s-lat').value,lng:document.getElementById('s-lng').value}}).then((response) => {
 						console.log(response);
+						$('#form-street')[0].reset();
+						alert('direccion asignada correctamente')
 						//$('#street').modal('show')
 					},response=>{
 						console.log(response)
@@ -180,9 +176,9 @@ restaurant = new Vue({
 		methods:{
 			create:function(e){
 				e.preventDefault();
-				var name = document.getElementById('name-restaurant').value;
-				this.$http.post('http://40.76.4.149:8000/restaurant', {name:name}).then((response) => {
+				this.$http.post('http://40.76.4.149:8000/restaurant', {name:document.getElementById('name-restaurant').value}).then((response) => {
 						console.log(response);
+						alert('registrado correctamente')
 						if(response.status == 201){
 							location.reload();
 						}
@@ -201,12 +197,9 @@ restaurant = new Vue({
 		methods:{
 			create:function(e){
 				e.preventDefault();
-				var name = document.getElementById('name-product').value;
-				var tipo = document.getElementById('tipo-prod').value;
-				var restaurant = document.getElementById('p-restaurant').value;
-				var precio = document.getElementById('p-precio').value;	
-				this.$http.post('http://40.76.4.149:8000/product', {name:name,type:tipo,restaurant:restaurant,price:precio}).then((response) => {
+				this.$http.post('http://40.76.4.149:8000/product', {name:document.getElementById('name-product').value,type:document.getElementById('tipo-prod').value,restaurant:document.getElementById('p-restaurant').value,price:document.getElementById('p-precio').value}).then((response) => {
 						console.log(response);
+						alert('registrado correctamente')
 						if(response.status == 201){
 							location.reload();
 						}
@@ -305,7 +298,6 @@ restaurant.getrestaurant();
 	}) 
 	$(document).on('click','#addrest',function(){
 		$('#mrest').modal('show')
-		google.maps.event.trigger(map_addres, 'resize');
 	})
 	$(document).on('click','#addprod',function(){
 		$('#mprod').modal('show')

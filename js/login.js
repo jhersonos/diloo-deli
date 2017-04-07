@@ -7,12 +7,11 @@ login = new Vue({
 		methods:{
 			loggin:function(e){
 				e.preventDefault();
-				var credentials = {
-					'email':document.getElementById('email').value,
-					'password':document.getElementById('pass').value
-				};
-				console.log('processing...')
-				this.$http.post('http://40.76.4.149:8000/admin/login',credentials).then(response=>{
+//				var credentials = {
+//					'email':document.getElementById('email').value,
+//					'password':document.getElementById('pass').value
+//				};
+				this.$http.post('http://40.76.4.149:8000/admin/login',{email:document.getElementById('email').value,password:document.getElementById('pass').value}).then(response=>{
 					this.token = response.body.token;
 					window.localStorage.log = response.body.token;
 					window.location.href='home.html'

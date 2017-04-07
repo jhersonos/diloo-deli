@@ -1,3 +1,4 @@
+/**** variables ****/
 		var map = null;
 		var map2 = null;
 		var map_addres;
