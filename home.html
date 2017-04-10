@@ -112,7 +112,7 @@
 							<div class="ui right pointing label" style="padding: 13px;">
 							Subtotal
 							</div>
-							<input type="text" id="subtotal">
+							<input type="text" id="subtotal" disabled="true">
 						</div>
 						<div class="inline field" style="margin: 5px 0;">
 							<div class="ui right pointing label" style="padding: 13px;">
@@ -123,15 +123,15 @@
 					</div>	
 				</td>
 				<td>
-					<div id="order_">
+					<div>
 						<div class="inline field ui input" style="margin: 5px 0;">
 							<div class="ui right pointing label" style="padding: 13px;">
 							Total
 							</div>
-							<input type="hidden" id="vi">
+							<input type="hidden" id="vi" value='1'>
 							<input type="text" id="total">
 						</div><br>
-						<button class="ui button" id="rpedido" >Realizar pedido</button>
+						<button class="ui button" id="rpedido" v-on:click="createOrder">Realizar pedido</button>
 					</div>
 				</td>
 			</tr>
@@ -250,7 +250,7 @@
 					<input type="text" id="p-precio">
 				</div>
 			</div>
-			<button class="ui button" id="asignar" type="button" v-on:click="create($event)">agregar</button>
+			<button class="ui button" type="button" v-on:click="create($event)">agregar</button>
 			<button class="ui button cancelar" type="button">Cancelar</button>
 		</form>
   </div>

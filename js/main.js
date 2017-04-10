@@ -6,6 +6,7 @@ var getprod;
 var addrest;
 var addprod;
 var order;
+
 /*****************get restaurant and set to select **************/
 restaurant = new Vue({
 	el:'#restaurants',
@@ -50,7 +51,7 @@ restaurant = new Vue({
 			list:function(){
 				var phone = document.getElementById('phone').value;
 				this.$http.get('http://40.76.4.149:8000/user/findOne?phone='+phone,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
-					console.log(response)
+					//console.log(response)
 					this.user = response.body.user
 					this.address = response.body.address
 					//script set information user
@@ -61,6 +62,10 @@ restaurant = new Vue({
 					var opt;
 					var sl = document.getElementById('s-start');
 					$('#s-start').find('option').remove().end();
+					var defi = document.createElement('option');
+					defi.text="-- seleccione ubicacion --";
+					defi.value="";
+					sl.add(defi)
 					if(this.address.length > 0){
 						var i =0 ;
 						var object,lng,lat,pt; 
@@ -69,7 +74,7 @@ restaurant = new Vue({
 							lat	   = object.lat;
 							lng    = object.lng;
 							pt		= lat + " " + lng;
-							console.log(pt)
+							//console.log(pt)
 							opt=document.createElement('option');
 							opt.value=pt;
 							opt.text=res.street;
@@ -83,6 +88,58 @@ restaurant = new Vue({
 				},response=>{
 					console.log(response)
 				})
+			},
+			createOrder:function(){ //order create
+				var productos = [];
+				var iduser 		= $('#id-user').val();		//id user
+				var restaurant 	= $('#rest').val();			//id restaurant
+				var subtotal 	= $('#subtotal').val();		//order price
+				var delivery 	= $('#delivery').val();		//delivery price
+				var total 		= $('#total').val();		//total 
+				var visa  		= $('#vi').val();			//interes visa si hay
+				var metodo		= $('#metodo').val();		//metodo de pago
+				var location 	= $('#s-start').val();		//lat,lng
+				var direccion	= $('#s-start').text();		//direccion	
+				var arr_;//arreglo
+				if (location != "" ) {
+					separador = " "; // un espacio en blanco
+					arr_ = location.split(separador);//guarda lat y lng de cada direccion 	
+					var location_ = { 
+						address:direccion,
+						lat:arr_[0],
+						lng:arr_[1],
+						ref:'s'
+					};
+				}else{}
+				$('#list-box .item').each(function(i,e){
+					var obj = {
+						id:$(this).find('.textall input[type=hidden]').val(),
+						name:$(this).find('.textall').text(),
+						unitPrice:$(this).find('.right .price .pri').text()
+					};
+					productos.push(obj);
+				})
+				//productos=[{id:1,name:'a',unitPrice:1},{id:2,name:'b',unitPrice:'2'}];
+				//object to request 
+				var alldata = {
+					user: iduser,
+					restaurant:restaurant,
+					orderPrice:subtotal,
+					delivertyPrice:delivery,
+					totalAmount:total,
+					visaAmount:visa,
+					paymentType:metodo,
+					location:location_,
+					products:productos
+				};
+				//http request post 
+				this.$http.post('http://40.76.4.149:8000/order', alldata ).then((response) => {
+						//console.log(response);
+						alert('Pedido correctamente')
+						location.reload();
+					},response=>{
+						console.log(response)
+					});
 			}
 		}
 	})
@@ -100,7 +157,7 @@ restaurant = new Vue({
 					console.log(response);
 					alert('usuario registrado correctamente')
 					$('#form-user')[0].reset();
-					$('#street').modal('show')
+					//$('#street').modal('show')
 					initialize();
 				},response=>{
 					console.log(response)
@@ -148,7 +205,7 @@ restaurant = new Vue({
 			getProduct:function(id){
 				var url ='http://40.76.4.149:8000/restaurant/'+id+'/products';
 				this.$http.get(url,{Authorization: 'Bearer '+ window.localStorage.log}).then(response=>{
-					console.log(response)
+					//console.log(response)
 					this.producto=response.body;
 					var select = document.getElementById('prod');
 					select.removeAttribute('disabled');
@@ -218,118 +275,7 @@ restaurant = new Vue({
 			}
 		}
 	});
-/**************post order******************
- order = new Vue({
-	el:'#order_',
-	data:{
-	},
-	methods:{
-		createOrder:function(){
-			alert()
-			var productos = [];
-			var iduser 		= $('#id-user').val();		//id user
-			var restaurant 	= $('#rest').val();			//id restaurant
-			var subtotal 	= $('#subtotal').val();		//order price
-			var delivery 	= $('#delivery').val();		//delivery price
-			var total 		= $('#total').val();		//total 
-			var visa  		= $('#vi').val();			//interes visa si hay
-			var metodo		= $('#metodo').val();		//metodo de pago
-			var location 	= $('#s-start').val();		//lat,lng
-			var direccion	= $('#s-start').text();		//direccion	
-			var arr_;//arreglo
-			if (location != "" ) {
-				separador = " "; // un espacio en blanco
-				arr_ = location.split(separador);//guarda lat y lng de cada direccion 	
-				var location_ = { 
-					address:direccion,
-					lat:arr_[0],
-					lng:arr_[1],
-					ref:''
-				};
-			}else{}
-			$('#list-box item').each(function(i,e){
-				var obj = {
-					id:$(this+' .text.content input[type=hidden]').val(),
-					name:$(this+' .text.content').text(),
-					price:$(this+' .right.floated.content .price').text()
-				};
-				productos.push(obj);
-			})
-			//object to request 
-			var alldata = {
-				user: iduser,
-				restaurant:restaurant,
-				orderPrice:subtotal,
-				deliveryPrice:delivery,
-				totalAmount:total,
-				visaAmount:visa,
-				paymentType:metodo,
-				location:location_,
-				products:productos
-			};
-			//http request post 
-			this.$http.post('http://40.76.4.149:8000/order', alldata ).then((response) => {
-					console.log(response);
-					alert('Pedido correctamente')
-				},response=>{
-					console.log(response)
-				});
-		}
-	}
-});*/
 
-$(document).on('click','#rpedido',function(){
-	var productos = [];
-			var iduser 		= $('#id-user').val();		//id user
-			var restaurant 	= $('#rest').val();			//id restaurant
-			var subtotal 	= $('#subtotal').val();		//order price
-			var delivery 	= $('#delivery').val();		//delivery price
-			var total 		= $('#total').val();		//total 
-			var visa  		= $('#vi').val();			//interes visa si hay
-			var metodo		= $('#metodo').val();		//metodo de pago
-			var location 	= $('#s-start').val();		//lat,lng
-			var direccion	= $('#s-start').text();		//direccion	
-			var arr_;//arreglo
-			if (location != "" ) {
-				separador = " "; // un espacio en blanco
-				arr_ = location.split(separador);//guarda lat y lng de cada direccion 	
-				var location_ = { 
-					address:direccion,
-					lat:arr_[0],
-					lng:arr_[1],
-					ref:''
-				};
-			}else{}
-			$('#list-box item').each(function(i,e){
-				var obj = {
-					id:$(this+' .text.content input[type=hidden]').val(),
-					name:$(this+' .text.content').text(),
-					price:$(this+' .right.floated.content .price').text()
-				};
-				productos.push(obj);
-			})
-			productos=[1,2];
-			//object to request 
-			var alldata = {
-				user: iduser,
-				restaurant:restaurant,
-				orderPrice:subtotal,
-				deliveryPrice:delivery,
-				totalAmount:total,
-				visaAmount:visa,
-				paymentType:metodo,
-				location:location_,
-				products:productos
-			};
-		$.ajax({
-		type: "POST",
-		url: 'http://40.76.4.149:8000/order',
-		data: alldata,
-		success: function(response){
-			console.log(response)
-		},
-		});
-})
 
 /********exec function in the load**********/
 /**/	restaurant.getrestaurant()  	/**/
@@ -407,7 +353,7 @@ $(document).on('click','#rpedido',function(){
 			});
 			//fin searchBox
 			}
-//semantic ui
+//semantic ui and Listener
     $(document).on('click','#Uadd',function(){
 		$('#useradd').modal('show')
  	})
@@ -428,13 +374,33 @@ $(document).on('click','#rpedido',function(){
 		var id = $('#rest').val();
 		getprod.getProduct(id);
 	})
+
+	var elem = document.getElementById("phone");
+	elem.onkeyup = function(e){
+		if(e.keyCode == 13){
+		getuser.list();
+		}
+	}
 //listners function 
 function subtotal(){
 	var sub=0;
-	$('#list-box item').each(function(i,e){
-		var precio = parseFloat($(this + '.right.floated .price').text());
+	$('#list-box .item').each(function(i,e){
+		var precio = parseFloat($(this).find('.right.floated .price .pri').text());
 		sub = sub + precio;
 	})
+	$('#subtotal').val(sub)
+}
+function total(){
+	var sub = $('#subtotal').val();
+	var deli = $('#delivery').val();
+	if(deli == ""){
+		deli = 0;
+	}
+	if(sub ==""){
+		sub=0;
+	}
+
+	$('#total').val(parseFloat(sub) + parseFloat(deli))
 }
 $(document).on('change','#prod',function(){
 	var element = $('#prod').val();
@@ -447,12 +413,18 @@ $(document).on('change','#prod',function(){
 			var id = array[0];
 			var price_ = array[1] ;
 			$('#list-box').append('<div class="item">'+'<div class="right floated content">'+
-			'<span class="price">'+'S/ '+price_+'</span><div class="ui button close">X</div>'+
-			'</div><div class="text content">'+ text+'<input type="hidden" id="'+id+'"></div>');
+			'<span class="price">'+'S/ <span class="pri">'+price_+'</span></span><div class="ui button close">X</div>'+
+			'</div><div class="textall content">'+ text+'<input type="hidden" value="'+id+'"></div>');
+			subtotal();
+			total();
 		}else{}
 });
 $(document).on('click','.close',function(){
 	$(this).parent().parent().remove();
+	subtotal();
+})
+$(document).on('keyup','#delivery',function(){
+	total()
 })
 //comprobador
 var archivoCargado=1;
